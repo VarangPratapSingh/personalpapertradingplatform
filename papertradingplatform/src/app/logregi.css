@@ -1,0 +1,43 @@
+#unapass {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    border-radius: 45px;
+    margin: 8px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#logintitle{
+    font-size: 4.2vh;
+}
+
+#loginun{
+    color: white;
+}
+
+#loginpa{
+    color: white;
+}
+
+#regisbu{
+    color: black;
+    background: linear-gradient(to bottom right, #A6FAB9, #4BABFC);
+}
+
+#loginbu{
+    color: black;
+    background-color: #A393F4;
+}
+
+.circleever{
+    border: none;
+    outline: none;
+    width: 300px;
+    height: 35px;
+    padding: 5px;
+    border-radius: 45px;
+    font-size: 2vh;
+    text-align: center;
+}

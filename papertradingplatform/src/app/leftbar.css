@@ -1,0 +1,36 @@
+#usernfo{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 6px;
+    font-size: 2vh;
+    align-items: center;
+}
+
+#pfp{
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background-color: rgb(255, 255, 255);
+    object-fit: cover;
+}
+
+#accnfo{
+    margin: 6px;
+    font-size: 2vh;
+}
+
+#leaderboard{
+    margin: 6px;
+    font-size: 2vh;
+}
+
+#resetaccountbutton{
+    background-color: red;
+    color: white;
+    border-radius: 45px;
+    outline: none;
+    border: none;
+    font-size: 2vh;
+    width: 100%;
+}
