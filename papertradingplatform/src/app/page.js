@@ -181,7 +181,7 @@ export default function Home() {
                     </table>
                 </div> */}
                 <div>
-                    <button id="resetaccountbutton" className="glass" style={{cursor: "pointer"}} onClick={resetaccount}>Reset Account</button>
+                    <button id="resetaccountbutton" className="glass" style={{cursor: "pointer"}} onClick={resetaccount}>Reset Portfolio</button>
                 </div>
                 <div className="glass guide">
                     <div className="titleofguide"> User Guide </div>

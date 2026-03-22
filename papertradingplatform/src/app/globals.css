@@ -50,6 +50,8 @@ body{
     margin-top: 1vh;
     align-items: center;
     font-size: 2vh;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
 }
 
 #leftbar{
