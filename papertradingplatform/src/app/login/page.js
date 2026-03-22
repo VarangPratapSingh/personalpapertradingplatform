@@ -6,7 +6,7 @@ export default function Login(){
     const [password,setpassword] = useState("");
     async function dologin(){
         if (!username.trim()||!password.trim()){return;}
-        const res = await fetch("http://localhost:5001/api/auth/login",{
+        const res = await fetch("https://personalpapertradingplatform.onrender.com/api/auth/login",{
             method: "POST",
             headers:{
                 "Content-Type":"application/json",
@@ -23,7 +23,7 @@ export default function Login(){
     }
     async function doregister(){
         if (!username.trim()||!password.trim()){return;}
-        const res = await fetch("http://localhost:5001/api/auth/register",{
+        const res = await fetch("https://personalpapertradingplatform.onrender.com/api/auth/register",{
             method: "POST",
             headers:{
                 "Content-Type":"application/json",

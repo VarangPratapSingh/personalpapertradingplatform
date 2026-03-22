@@ -13,7 +13,7 @@ export default function Home() {
     async function fetchUser() {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:5001/api/user/me",{
+        const res = await fetch("https://personalpapertradingplatform.onrender.com/api/user/me",{
             headers:{
                 Authorization: `Bearer ${token}`
             }
@@ -82,7 +82,8 @@ export default function Home() {
         const token = localStorage.getItem("token");
         const qty = Number(quantity);
         if (!qty||qty<=0||!price){return;}
-        const res = await fetch("http://localhost:5001/api/user/buy",{
+        
+        const res = await fetch("https://personalpapertradingplatform.onrender.com/api/user/buy",{
             method: "POST",
             headers:{
                 "Content-Type":"application/json",
@@ -102,7 +103,8 @@ export default function Home() {
     
     async function sellholding(idx) {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:5001/api/user/sell",{
+
+        const res = await fetch("https://personalpapertradingplatform.onrender.com/api/user/sell",{
             method: "POST",
             headers:{
                 "Content-Type":"application/json",
@@ -124,7 +126,7 @@ export default function Home() {
         const confirmreset = window.confirm("Are you sure you want to reset your account?");
         if (!confirmreset){return;}
 
-        const res = await fetch("http://localhost:5001/api/user/reset",{
+        const res = await fetch("https://personalpapertradingplatform.onrender.com/api/user/reset",{
             method: "POST",
             headers:{
                 "Content-Type":"application/json",
