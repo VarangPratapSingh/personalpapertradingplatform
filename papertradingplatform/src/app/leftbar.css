@@ -34,3 +34,23 @@
     font-size: 2vh;
     width: 100%;
 }
+
+.guide{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 20px;
+    font-size: 1.8vh;
+    flex-direction: column;
+    padding: 15px;
+    color: rgb(204, 204, 204);
+    gap: 5px;
+    text-align: center;
+}
+
+.titleofguide{
+    font-size: 3vh;
+    font-weight: 600;
+    color: white;
+}

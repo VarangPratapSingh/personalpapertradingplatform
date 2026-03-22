@@ -9,8 +9,6 @@ export default function Home() {
     const [holdings,setHoldings] = useState([]);
     const [trades,setTrades] = useState([]);
     const [user,setUser] = useState(null);
-    const [leaderboard,setLeaderboard] = useState([]);
-    const [rank,setRank] = useState(null);
 
     async function fetchUser() {
         const token = localStorage.getItem("token");
@@ -33,12 +31,6 @@ export default function Home() {
         setTrades(data.trades);
     }
     
-    async function fetchLeaderboard() {
-        const res = await fetch("https://personalpapertradingplatform.onrender.com/api/user/leaderboard");
-        const data = await res.json();
-        setLeaderboard(data);
-    }
-
     useEffect(()=>{
         const script = document.createElement("script")
         script.src = "https://s3.tradingview.com/tv.js"
@@ -74,19 +66,8 @@ export default function Home() {
             window.location.href = "/login";
             return;
         }
-        (async()=>{
-            await fetchUser();
-            fetchLeaderboard();
-        })();
+        fetchUser();
     },[]);
-
-    useEffect(()=>{
-        if (!user||leaderboard.length === 0){return;}
-        const idx = leaderboard.findIndex(u => u.username === user);
-        if (idx !== -1){
-            setRank(idx+1);
-        }
-    },[user,leaderboard]);
 
     function changequant(e){
         setQuantity(e.target.value);
@@ -164,23 +145,23 @@ export default function Home() {
     return (
         <div id="maincontainer">
             <div id="navibar" className="glass">
-                <div>PaperTrade</div>
-                <div>Dashboard</div>
-                <div onClick={logout} id="logoutbutton" className="glass" style={{cursor: "pointer"}}>Logout</div>
+                <div>Paper Trading Platform</div>
+                <div>Portfolio Dashboard</div>
+                <div onClick={logout} id="logoutbutton" className="glass" style={{cursor: "pointer"}}>Sign Out</div>
             </div>
             <div id="leftbar" className="glass">
                 <div id="usernfo">
-                    <div id="pfp"></div>
+                    <img id = "pfp" src={`https://api.dicebear.com/7.x/initials/svg?seed=${user || "User"}`}  alt="pfp" className="glass"/>
                     <div>
                         <div>{user ?? "User"}</div>
-                        <div>Rank: {rank ?? "-"}</div>
+                        {/* <div>Rank</div> */}
                     </div>
                 </div>
                 <div id="accnfo">
-                    <div>Bal ${balance.toFixed(2)}</div>
-                    <div>P/L {(((balance-2000)/2000)*100).toFixed(2)}%</div>
+                    <div>Balance: ${balance.toFixed(2)}</div>
+                    <div>P/L: {(((balance-2000)/2000)*100).toFixed(2)}%</div>
                 </div>
-                <div id="leaderboard">
+                {/* <div id="leaderboard">
                     Leaderboard
                     <table>
                         <thead>
@@ -191,23 +172,35 @@ export default function Home() {
                             </tr>
                         </thead>
                         <tbody>
-                            {leaderboard.map((u,i)=>(
-                                <tr key={i}>
-                                    <td>{i+1}</td>
-                                    <td>{u.username}</td>
-                                    <td>${u.balance.toFixed(2)}</td>
-                                </tr>
-                            ))}
+                            <tr><td>1</td><td>U1</td><td>$233</td></tr>
+                            <tr><td>2</td><td>U2</td><td>$232</td></tr>
+                            <tr><td>3</td><td>U3</td><td>$231</td></tr>
+                            <tr><td>4</td><td>U4</td><td>$230</td></tr>
+                            <tr><td>5</td><td>U5</td><td>$229</td></tr>
                         </tbody>
                     </table>
-                </div>
+                </div> */}
                 <div>
                     <button id="resetaccountbutton" className="glass" style={{cursor: "pointer"}} onClick={resetaccount}>Reset Account</button>
+                </div>
+                <div className="glass guide">
+                    <div className="titleofguide"> User Guide </div>
+                    <div> - Trade During Market Hours </div>
+                    <div> - Enter Quantity And Execute Buy </div>
+                    <div> - Sell Positions From Holdings </div>
+                    <div> - Monitor Balance & P/L </div>
+                    <div> - Reset Account Anytime </div>
+                </div>
+                <div className="glass guide">
+                    <div className="titleofguide"> Notes </div>
+                    <div> - Hosted On Free Tier Infrastructure </div>
+                    <div> - Response Times May Vary </div>
+                    <div> - Delays Possible During High Traffic</div>
                 </div>
             </div>
             <div id="tradbar" className="glass">
                 <div id="chartcontainer">
-                    <div>NASDAQ:AAPL - ${price ??  "Loading..."}</div>
+                    <div>AAPL(NASDAQ) -- ${price ??  "Loading..."}</div>
                     <div id="tv_chart" className="glass" style={{height: "500px"}}></div>
                 </div>
                 <div id="buyingarea" className="glass">
@@ -220,9 +213,9 @@ export default function Home() {
                         <table className="tablegen">
                             <thead>
                                 <tr>
-                                    <th>Qty</th>
-                                    <th>Buy</th>
-                                    <th>Exit</th>
+                                    <th>Quantity</th>
+                                    <th>Entry Price</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -242,7 +235,7 @@ export default function Home() {
                         </table>
                     </div>
                     <div id="historyarea">
-                        <div className="titlesize">Trade Log</div>
+                        <div className="titlesize">Transaction History</div>
                         <table className="tablegen">
                             <thead>
                                 <tr>
