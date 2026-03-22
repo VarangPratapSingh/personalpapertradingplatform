@@ -48,8 +48,8 @@ export default function Login(){
             <div id="logintitle">Login/Register Page</div>
             <input id="loginun" maxLength={16} className="circleever glass" placeholder="Username" value={username} onChange={(e)=>setusername(e.target.value)}/>
             <input id="loginpa" maxLength={16} className="circleever glass" type="password" placeholder="Password" value={password} onChange={(e)=>setpassword(e.target.value)}/>
-            <button id="loginbu" className="circleever glass" onClick={dologin}>Login</button>
-            <button id="regisbu" className="circleever glass" onClick={doregister}>Register</button>
+            <button id="loginbu" className="circleever glass" onClick={dologin} style={{cursor: "pointer"}}>Login</button>
+            <button id="regisbu" className="circleever glass" onClick={doregister}  style={{cursor: "pointer"}}>Register</button>
         </div>
     )
 }
