@@ -127,7 +127,17 @@ app.get("/api/user/me", authMiddleware, async(req, res)=>{
         return res.status(404).json({msg: "User Not Found"});
     }
     res.json(user);
-})
+});
+
+app.post("/api/user/leaderboard",async (req,res)=>{
+    try {
+        const users = await User.find().select("username balance");
+        const sorted = users.sort((a,b) => b.balance - a.balance);
+        res.json(sorted);
+    } catch (err) {
+        res.status(500).json({msg: "Server Error"});
+    }
+});
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT,()=>{

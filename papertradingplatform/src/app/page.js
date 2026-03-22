@@ -9,6 +9,8 @@ export default function Home() {
     const [holdings,setHoldings] = useState([]);
     const [trades,setTrades] = useState([]);
     const [user,setUser] = useState(null);
+    const [leaderboard,setLeaderboard] = useState([]);
+    const [rank,setRank] = useState(null);
 
     async function fetchUser() {
         const token = localStorage.getItem("token");
@@ -31,6 +33,12 @@ export default function Home() {
         setTrades(data.trades);
     }
     
+    async function fetchLeaderboard() {
+        const res = await fetch("https://personalpapertradingplatform.onrender.com/api/user/leaderboard");
+        const data = await res.json();
+        setLeaderboard(data);
+    }
+
     useEffect(()=>{
         const script = document.createElement("script")
         script.src = "https://s3.tradingview.com/tv.js"
@@ -66,8 +74,19 @@ export default function Home() {
             window.location.href = "/login";
             return;
         }
-        fetchUser();
+        (async()=>{
+            await fetchUser();
+            fetchLeaderboard();
+        })();
     },[]);
+
+    useEffect(()=>{
+        if (!user||leaderboard.length === 0){return;}
+        const idx = leaderboard.findIndex(u => u.username === user);
+        if (idx !== -1){
+            setRank(idx+1);
+        }
+    },[user,leaderboard]);
 
     function changequant(e){
         setQuantity(e.target.value);
@@ -154,7 +173,7 @@ export default function Home() {
                     <div id="pfp"></div>
                     <div>
                         <div>{user ?? "User"}</div>
-                        <div>Rank</div>
+                        <div>Rank: {rank ?? "-"}</div>
                     </div>
                 </div>
                 <div id="accnfo">
@@ -172,11 +191,13 @@ export default function Home() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>1</td><td>U1</td><td>$233</td></tr>
-                            <tr><td>2</td><td>U2</td><td>$232</td></tr>
-                            <tr><td>3</td><td>U3</td><td>$231</td></tr>
-                            <tr><td>4</td><td>U4</td><td>$230</td></tr>
-                            <tr><td>5</td><td>U5</td><td>$229</td></tr>
+                            {leaderboard.map((u,i)=>(
+                                <tr key={i}>
+                                    <td>{i+1}</td>
+                                    <td>{u.username}</td>
+                                    <td>${u.balance.toFixed(2)}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
@@ -255,5 +276,3 @@ export default function Home() {
         </div>
     );
 }
-
-//user redux, redis somehow
